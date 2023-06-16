@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% extends 'indexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                            <form class="form-horizontal" method="POST" action="{% url 'savedata' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="card-body">
+                                    <h4 class="card-title"> Product Info</h4>
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Category Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="fname" placeholder="Category Name" name="Category Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="lname" class="col-sm-3 text-right control-label col-form-label">Category Image</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" class="form-control" id="lname" placeholder="Category Image" name="Image">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 text-right control-label col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'warning' %}
+      <script>
+          swal('{{i}}','','warning');
+      </script>
+    {% elif i.tags == 'error' %}
+      <script>
+         swal('{{i}}','','error');
+      </script>
+    {% else %}
+       <script>
+         swal('{{i}}','','success');
+       </script>
+     {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</body>
+</html>
+{% endblock %}
